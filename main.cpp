@@ -1,67 +1,44 @@
 #include <stdio.h>
 #include <iostream>
 #include <list>
-
+#include <algorithm>
+#include <vector>
+#include <thread>
 using namespace std;
+
+void Add(int num)
+{
+	num += 1;
+
+	printf("Thread %d\n", num);
+};
+
+void Add2(int num)
+{
+	num += 2;
+
+	printf("Thread %d\n", num);
+};
+
+void Add3(int num)
+{
+	num += 3;
+
+	printf("Thread %d\n", num);
+};
+
 
 int main()
 {
+	int Num = 0;
 
-	list<const char*> list_
-	{
-		"Tokyo","Kanda","Akihabara","Okachimachi",
-		"Uguisudani","Nippori","Tabata","Komagome",
-		"Sugamo","Otsuka","Ikebukuro","Mejiro",
-		"Takadanobaba","Shin-Okubo","Shinjuku","Yoyogi",
-		"Harajuku","Shibuya","Ebisu","Meguro",
-		"Gotanda","Osaki","Sinagawa","Tamachi",
-		"Hamamatsucho","Shimbasi","Yurakucho"
-	};
+	std::thread th1(Add, Num);
+	std::thread th2(Add2, Num);
+	std::thread th3(Add3, Num);
 
-	printf("º˜a6”N‚Ì˜Hü}\n");
-
-	for (list<const char*>::iterator it_f = list_.begin(); it_f != list_.end(); ++it_f)
-	{
-		cout << *it_f << endl;
-	}
-
-	printf("\n");
-
-	printf("º˜a47”N‚Ì˜Hü}\n");
-
-	for (list<const char*>::iterator it_f = list_.begin(); it_f != list_.end(); ++it_f)
-	{
-		if (*it_f == "Tabata")
-		{
-			it_f = list_.insert(it_f, "Nishi-Nippori");
-
-			++it_f;
-		}
-	}
-
-	for (list<const char*>::iterator it_f = list_.begin(); it_f != list_.end(); ++it_f)
-	{
-		cout << *it_f << endl;
-	}
-
-	printf("\n");
-
-	printf("—ß˜a5”N‚Ì˜Hü}\n");
-
-	for (list<const char*>::iterator it_f = list_.begin(); it_f != list_.end(); ++it_f)
-	{
-		if (*it_f == "Tamachi")
-		{
-			it_f = list_.insert(it_f, "Takanawa Gateway");
-
-			++it_f;
-		}
-	}
-
-	for (list<const char*>::iterator it_f = list_.begin(); it_f != list_.end(); ++it_f)
-	{
-		cout << *it_f << endl;
-	}
-
+	th1.join();
+	th2.join();
+	th3.join();
+	
 	return 0;
 }
